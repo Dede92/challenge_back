@@ -5,7 +5,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
-// import java.util.Optional;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.time.format.DateTimeFormatter;  
 import java.time.LocalDateTime;    
@@ -26,6 +27,7 @@ public class MessageController {
 	private final AtomicLong counter = new AtomicLong();
     private static Map<Long, Message> hashOfMessages = new HashMap<Long, Message>();
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/message/{id}")
 	public Message one(@PathVariable Long id) {
         if(!hashOfMessages.containsKey(id)) {
@@ -34,12 +36,13 @@ public class MessageController {
         return hashOfMessages.get(id);
 	}
 
-
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/messages")
     List<Message> all() {
         return new ArrayList<Message>(hashOfMessages.values());
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/messages")
     Message newMessage(@RequestBody Message paramMessage) {
         Message newMessage = new Message(counter.incrementAndGet(), paramMessage.getContent(), paramMessage.getDeadline(), paramMessage.getTags(), paramMessage.getLink(), paramMessage.getIcon());
@@ -47,6 +50,7 @@ public class MessageController {
         return hashOfMessages.get(counter.get());
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @PutMapping("/messages/{id}")
     Message replaceMessage(@RequestBody Message paramMessage, @PathVariable Long id) {
         if(!hashOfMessages.containsKey(id)) {
@@ -67,6 +71,7 @@ public class MessageController {
         return hashOfMessages.get(id);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @DeleteMapping("/messages/{id}")
     void deleteMessage(@PathVariable Long id) {
         if(!hashOfMessages.containsKey(id)) {
