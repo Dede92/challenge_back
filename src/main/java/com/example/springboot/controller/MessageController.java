@@ -1,4 +1,4 @@
-package com.example.springboot;
+package com.example.springboot.controller;
 
 import java.util.List;
 import java.util.Map;
@@ -8,6 +8,11 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.example.springboot.exception.MessageNotFoundException;
+import com.example.springboot.model.Message;
+import com.example.springboot.repository.MessageRepository;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
