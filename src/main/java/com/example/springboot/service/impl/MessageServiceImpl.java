@@ -52,7 +52,6 @@ public class MessageServiceImpl implements MessageService {
         message.setDeadline(messageDetails.getDeadline());
         message.setTags(messageDetails.getTags());
         message.setLink(messageDetails.getLink());
-        message.setIcon(messageDetails.getIcon());
 
         final Message updatedMessage = messageRepository.save(message);
         return updatedMessage;
