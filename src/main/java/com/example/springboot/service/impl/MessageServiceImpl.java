@@ -6,6 +6,8 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.example.springboot.common.query.SearchRequest;
+import com.example.springboot.common.query.SearchSpecification;
 import com.example.springboot.exception.MessageNotFoundException;
 import com.example.springboot.model.Message;
 import com.example.springboot.repository.MessageRepository;
@@ -18,12 +20,6 @@ public class MessageServiceImpl implements MessageService {
 
     public MessageServiceImpl(MessageRepository messageRepository) {
         this.messageRepository = messageRepository;
-    }
-
-    @Override
-    public List<Message> searchMessages(String query) {
-        List<Message> messages = messageRepository.searchMessage(query);
-        return messages;
     }
 
     @Override
@@ -66,6 +62,12 @@ public class MessageServiceImpl implements MessageService {
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
         return response;
+    }
+
+    @Override
+    public List<Message> searchMessage(SearchRequest request) {
+        SearchSpecification<Message> specification = new SearchSpecification<>(request);
+        return messageRepository.findAll(specification);
     }
 
 }
