@@ -24,46 +24,41 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api/v1")
 public class MessageController {
 
     @Autowired
     private MessageService messageService;
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/messages/{id}")
     public ResponseEntity<Message> getMessageById(@PathVariable(value = "id") Long messageId)
             throws MessageNotFoundException {
         return ResponseEntity.ok().body(messageService.findById(messageId));
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/messages")
     List<Message> getAllMessages() {
         return messageService.getAllMessages();
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/messages")
     Message createMessage(@RequestBody Message message) {
         return messageService.createMessage(message);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @PutMapping("/messages/{id}")
     ResponseEntity<Message> updateMessage(@RequestBody Message messageDetails,
             @PathVariable(value = "id") Long messageId) throws MessageNotFoundException {
         return ResponseEntity.ok(messageService.updateMessage(messageId, messageDetails));
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @DeleteMapping("/messages/{id}")
     public Map<String, Boolean> deleteMessage(@PathVariable(value = "id") Long messageId)
             throws MessageNotFoundException {
         return messageService.deleteMessage(messageId);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping(value = "/messages/search")
     public List<Message> search(@RequestBody SearchRequest request) {
         return messageService.searchMessage(request);
