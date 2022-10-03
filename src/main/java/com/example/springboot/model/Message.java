@@ -43,7 +43,7 @@ public class Message {
   private LocalDateTime deadline;
 
   @Column(name = "tags", nullable = true)
-  private String[] tags;
+  private String[] tags = new String[0];
 
   @Column(name = "link", nullable = true)
   private String link;
