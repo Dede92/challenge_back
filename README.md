@@ -1,6 +1,6 @@
 # Challenge backend
 
-## Availabel API CMD
+## Availabe API CMD
 
 List all messages
 ```
@@ -17,6 +17,39 @@ Create a message
 curl -X POST localhost:8080/api/v1/messages -H "Content-Type: application/json" -d '{"content":"new message"}'
 ```
 
+Search a message
+
+```
+curl -X POST localhost:8080/api/v1/messages/search -H "Content-Type: application/json" -d  '{ 
+    "filters": [
+        {
+            "key": "createdAt",
+            "operator": "BETWEEN",
+            "field_type": "DATE",
+            "value": "2020-01-01 00:00:00",
+            "value_to": "2022-10-04 00:00:00"
+        },
+        {
+            "key": "content",
+            "operator": "LIKE",
+            "field_type": "STRING",
+            "value": "message"
+        },   
+    ]
+}'
+```
+
+Upload file
+```
+localhost:8080/upload/{message_id}
+```
+
+List all files
+```
+curl localhost:8080/files
+```
+
+Available `operator` listed in `Operator.java`, available `field_type` in `FieldType.java`
 ## Docker run
 
 The following command will deploy the Spring API and a PSQL database.
