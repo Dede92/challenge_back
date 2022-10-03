@@ -1,7 +1,6 @@
 package com.example.springboot.model;
 
 import java.time.LocalDateTime;
-import java.time.LocalDate;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -18,8 +17,6 @@ import javax.persistence.Table;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -42,9 +39,8 @@ public class Message {
   @Column(name = "content", nullable = false)
   private String content;
 
-  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
   @Column(name = "deadline", nullable = true)
-  private LocalDate deadline;
+  private LocalDateTime deadline;
 
   @Column(name = "tags", nullable = true)
   private String[] tags;
@@ -60,7 +56,7 @@ public class Message {
   Message() {
   }
 
-  Message(String content, LocalDate deadline, String[] tags, String link) {
+  Message(String content, LocalDateTime deadline, String[] tags, String link) {
     this.content = content;
     this.deadline = deadline;
     this.tags = tags;
@@ -87,7 +83,7 @@ public class Message {
     return this.tags;
   }
 
-  public LocalDate getDeadline() {
+  public LocalDateTime getDeadline() {
     return this.deadline;
   }
 
@@ -119,7 +115,7 @@ public class Message {
     return this.tags = tags;
   }
 
-  public LocalDate setDeadline(LocalDate deadline) {
+  public LocalDateTime setDeadline(LocalDateTime deadline) {
     return this.deadline = deadline;
   }
 
